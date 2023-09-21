@@ -30,7 +30,7 @@ func Benchmark_clustering(b *testing.B) {
 	b.Run("FAISS", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 1; i < b.N; i++ {
-			_, err := faiss.ComputeClusters(int64(i), data)
+			_, err := faiss.ComputeClusters(100, data)
 			if err != nil {
 				panic(err)
 			}
@@ -40,7 +40,7 @@ func Benchmark_clustering(b *testing.B) {
 	b.Run("KMEANS", func(b *testing.B) {
 		b.ResetTimer()
 		for i := 1; i < b.N; i++ {
-			_, err := kmeans.ComputeClusters(int64(i), data)
+			_, err := kmeans.ComputeClusters(100, data)
 			if err != nil {
 				panic(err)
 			}

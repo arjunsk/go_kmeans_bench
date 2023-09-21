@@ -16,3 +16,10 @@ faiss:
 		make -C build && \
 		sudo make -C build install && \
 		sudo cp build/c_api/libfaiss_c.dylib /usr/local/lib/libfaiss_c.dylib
+
+
+.PHONY: mlpack
+mlpack:
+	go get -u -d mlpack.org/v1/mlpack && \
+	cd ${GOPATH}/src/mlpack.org/v1/mlpack && \
+	make install

@@ -20,14 +20,28 @@ import (
 	"testing"
 )
 
-func TestFaissClustering_ComputeCenters(t *testing.T) {
+func TestClustering_FAISS(t *testing.T) {
 	rowCnt := 3000
 	dims := 5
 	data := make([][]float32, rowCnt)
 	loadData(rowCnt, dims, data)
 
 	clusterCnt := 10
-	var cluster Clustering = &faissClustering{}
+	var cluster = NewFaissClustering()
+	centers, err := cluster.ComputeClusters(int64(clusterCnt), data)
+	require.Nil(t, err)
+
+	require.Equal(t, 10, len(centers))
+}
+
+func TestClustering_Mlpack(t *testing.T) {
+	rowCnt := 3000
+	dims := 5
+	data := make([][]float32, rowCnt)
+	loadData(rowCnt, dims, data)
+
+	clusterCnt := 10
+	var cluster = NewMlpackClustering()
 	centers, err := cluster.ComputeClusters(int64(clusterCnt), data)
 	require.Nil(t, err)
 
