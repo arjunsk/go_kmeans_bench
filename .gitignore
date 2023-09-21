@@ -17,4 +17,4 @@ out.txt
 vendor/
 gen_config
 main
-cgo/thirdparty/faiss
+cgo/thirdparty/faiss/
