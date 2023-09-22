@@ -18,6 +18,15 @@ faiss:
 		sudo cp build/c_api/libfaiss_c.dylib /usr/local/lib/libfaiss_c.dylib
 
 
+.PHONY: mlpack1
+mlpack1:
+	wget http://www.mlpack.org/files/mlpack-3.0.4.tar.gz && \
+	tar -xvzpf mlpack-3.0.4.tar.gz && \
+	mkdir mlpack-3.0.4/build && cd mlpack-3.0.4/build && \
+	cmake ../ && \
+	make -j4 && \
+	sudo make install
+
 .PHONY: mlpack
 mlpack:
 	go get -u -d mlpack.org/v1/mlpack && \
