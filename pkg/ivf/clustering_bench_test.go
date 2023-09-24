@@ -26,6 +26,7 @@ func Benchmark_clustering(b *testing.B) {
 
 	faiss := NewFaissClustering()
 	kmeans := NewKmeansClustering()
+	elkan := NewElkanClustering()
 
 	b.Run("FAISS", func(b *testing.B) {
 		b.ResetTimer()
@@ -47,10 +48,24 @@ func Benchmark_clustering(b *testing.B) {
 		}
 	})
 
+	b.Run("ELKAN", func(b *testing.B) {
+		b.ResetTimer()
+		for i := 1; i < b.N; i++ {
+			_, err := elkan.ComputeClusters(100, data)
+			if err != nil {
+				panic(err)
+			}
+		}
+	})
+
 	/*
 		rowCnt := 1_000
 		dims := 1024
-		Benchmark_clustering/FAISS-10         	     100	 144196691 ns/op
-		Benchmark_clustering/KMEANS-10        	     100	3705940079 ns/op
+		Benchmark_clustering/FAISS-10         	     100	  14349158 ns/op
+		Benchmark_clustering/KMEANS-10        	     100	7252259311 ns/op
+		Benchmark_clustering/ELKAN-10         	     100	 229534486 ns/op
+
+		Approx: 1:500:14 (FAISS:KMEANS:ELKAN)
+
 	*/
 }
